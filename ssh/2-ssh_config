@@ -1,4 +1,4 @@
 Host *
-    IdentityFile ~/.ssh/school
+    IdentityFile ~/.ssh/web_infra_key
     PasswordAuthentication no
 
