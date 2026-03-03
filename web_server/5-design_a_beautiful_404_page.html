@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>404 - Perception Error</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap");
+
+        :root {
+            --bg-color: #041e1e;
+            --accent-emerald: #00ff88;
+            --accent-amber: #ffcc00;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: "Outfit", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated Digital Scan Background */
+        .scan-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 255, 136, 0.02) 50%, transparent 50%);
+            background-size: 100% 4px;
+            z-index: 0;
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 1000px;
+            }
+        }
+
+        /* Glow Spots */
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(1.2) translate(30px, -20px);
+                opacity: 0.6;
+            }
+        }
+
+        /* Glassmorphism Container */
+        main {
+            position: relative;
+            text-align: center;
+            padding: 4rem 3rem;
+            max-width: 600px;
+            z-index: 10;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-code {
+            font-weight: 900;
+            font-size: 9rem;
+            line-height: 0.8;
+            background: linear-gradient(to bottom, #fff, var(--accent-emerald));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+            position: relative;
+        }
+
+        .error-code::after {
+            content: "404";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #fff, var(--accent-amber));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.1;
+            transform: translate(4px, 4px);
+        }
+
+        .subtitle {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 1.25rem;
+            letter-spacing: 0.4em;
+            color: var(--accent-emerald);
+            margin-bottom: 2.5rem;
+        }
+
+        .quote-container {
+            margin-bottom: 2.5rem;
+        }
+
+        .french-quote {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--accent-amber);
+            margin: 1.5rem auto;
+        }
+
+        .description {
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.2rem;
+            color: #000;
+            text-decoration: none;
+            padding: 1.2rem 3rem;
+            border-radius: 16px;
+            background: var(--accent-emerald);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .home-link:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: #fff;
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Background Number */
+        .bg-number {
+            position: absolute;
+            font-weight: 900;
+            font-size: 35vw;
+            color: rgba(0, 255, 136, 0.02);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scan-bg"></div>
+    <div class="glow"></div>
+    <div class="bg-number">404</div>
+    <main>
+        <div class="error-code">404</div>
+        <div class="subtitle">System Latency</div>
+
+        <div class="quote-container">
+            <div class="french-quote">Ceci n'est pas une page</div>
+            <div class="quote-divider"></div>
+        </div>
+
+        <p class="description">
+            You've reached a segment of reality that hasn't been rendered yet.
+            Allow us to guide you back.
+        </p>
+
+        <a href="/" class="home-link">
+            Initialize Return
+        </a>
+    </main>
+</body>
+
+</html>
