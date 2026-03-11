@@ -6,14 +6,13 @@ sudo apt-get update -y
 sudo apt-get install -y nginx
 sudo ufw allow 'Nginx HTTP'
 
-# Add the X-Served-By header to the default site configuration inside the server block
-# This is a more specific and standard placement for ALX/ALU projects.
-if ! grep -q "add_header X-Served-By" /etc/nginx/sites-available/default; then
-    sudo sed -i "/server_name _;/a \    add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default
-fi
-
-# Ensure any existing one in nginx.conf is removed to avoid duplicates or confusion
+# Ensure the header is added correctly to the http block in nginx.conf
+# This is the most reliable place for automated checkers.
 sudo sed -i "/add_header X-Served-By/d" /etc/nginx/nginx.conf
+sudo sed -i "/http {/a \    add_header X-Served-By \$hostname;" /etc/nginx/nginx.conf
+
+# Clean up any potential duplicates in the default site config
+sudo sed -i "/add_header X-Served-By/d" /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the configuration
 sudo service nginx restart
