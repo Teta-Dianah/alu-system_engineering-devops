@@ -1,42 +1,21 @@
 #!/usr/bin/env bash
-# Installs and configures HAProxy on a new Ubuntu machine
-# to distribute traffic to web-01 and web-02 using roundrobin
+# Install and configure HAProxy load balancer
 
-apt-get update -y
-apt-get install -y haproxy
+apt-get update
+apt-get -y install haproxy
 
-# Enable HAProxy to be managed via init script
-sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
+echo "ENABLED=1" | tee /etc/default/haproxy
 
-# Configure HAProxy with the standard ALX configuration
-tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
-global
-	log /dev/log	local0
-	log /dev/log	local1 notice
-	chroot /var/lib/haproxy
-	stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-	stats timeout 30s
-	user haproxy
-	group haproxy
-	daemon
+cat <<EOF >> /etc/haproxy/haproxy.cfg
 
-defaults
-	log	global
-	mode	http
-	option	httplog
-	option	dontlognull
-        timeout connect 5000
-        timeout client  50000
-        timeout server  50000
-
-frontend http-in
+frontend http_front
     bind *:80
-    default_backend web-backend
+    default_backend http_back
 
-backend web-backend
+backend http_back
     balance roundrobin
-    server web-01 52.90.67.39:80
-    server web-02 44.208.165.54:80
+    server web-01 52.90.67.39:80 check
+    server web-02 44.208.165.54:80 check
 EOF
 
 service haproxy restart
