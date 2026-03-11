@@ -36,8 +36,8 @@ frontend main
 
 backend app
     balance roundrobin
-    server 7009-web-01 52.90.67.39:80
-    server 7009-web-02 44.208.165.54:80
+    server web-01 52.90.67.39:80 check
+    server web-02 44.208.165.54:80 check
 EOF
 
 # Restart HAProxy to apply changes
