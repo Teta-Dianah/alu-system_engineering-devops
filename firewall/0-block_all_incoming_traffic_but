@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 ufw default deny incoming
 ufw allow 22/tcp
 ufw allow 80/tcp
