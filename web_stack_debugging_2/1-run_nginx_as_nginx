@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Configure Nginx to run as nginx user and listen on port 8080
-sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
+id -u nginx &>/dev/null || useradd -r nginx
+sed -i 's/user .*/user nginx;/' /etc/nginx/nginx.conf
 sed -i 's/listen 80 default_server/listen 8080 default_server/g' /etc/nginx/sites-available/default
 sed -i 's/listen \[::\]:80 default_server/listen [::]:8080 default_server/g' /etc/nginx/sites-available/default
 service apache2 stop 2>/dev/null
-pkill apache2 2>/dev/null
+pkill -f apache2 2>/dev/null
 service nginx stop 2>/dev/null
 service nginx start
